@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #424242;
+    font-family: "Quicksand", sans-serif;
+}
+
+header {
+    background-color: gainsboro;
+    color: #424242;
+    margin: 0px;
+    padding: 1em;
+    /* height: 15%; */
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+
+}
+
+#opBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #424242;
+    color: #ffffff;
+    height: 4em;
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 25em;
+    background-color: lavender;
+    padding: 2em;
+}
+
+#bookTable {
+    width: 65%;
+    background-color: lavender;
+}
+
+.book-row {
+    display: grid;
+    grid-template-columns: 5% 50% 15% 10% 10% 10%;
+    margin: 0px 1em;
+    background-color: #ffffff;
+    border: 1px solid gainsboro;
+    padding: 3px;
+}
+
+.top-row {
+    /* margin-top: 1em; */
+    padding: 5px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    color: #757575;
+
+}
+
+.bottom-row {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    border: 1px solid gainsboro;
+    padding: 2px;
+    background-color: white;
+    color: #757575;
+    padding: 5px;
+    margin: 0px 1em;
+    justify-items: center;
+    align-items: center;
+    margin-top: 0.5em;
+}
+
+.clickable:hover {
+    color: rgb(164, 18, 164);
+    cursor: pointer;
+}
+
+#bookDetails {
+    background-color: white;
+    border-radius: 15px;
+    width: 90%;
+    margin: 0px 5%;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+#bookDetailsContainer {
+    width: 35%;
+
+}
+
+.book-image {
+    width: 140px;
+    height: 200px;
+}
+
+.book-image img {
+    object-fit: cover;
+    max-width: 140px;
+    height: auto;
+    max-height: 200px;
+    border: 1px solid #ddd;
+}
+
+.book-title {
+    margin: 0.5em 0em;
+}
+
+.wrap-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 1em;
+}
+
+.rate-button {
+    background-color: white;
+    border: 1px solid #6c6c6c;
+    border-radius: 40%;
+    color: #6c6c6c;
+}
+
+.rate-button:hover {
+    background-color: #e0e0e0;  /* Slightly darker gray on hover */
+    cursor: pointer;
+}
