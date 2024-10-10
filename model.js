@@ -60,3 +60,6 @@ const gBooks = [
         price: 14.50
     }
 ];
+
+let gNameSort = 'UP';
+let gPriceSort = 'UP';

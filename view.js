@@ -18,8 +18,8 @@ const renderBooksTable = (books) => {
     }
     const topRow = `<div class="book-row top-row">
                         <div>ID</div>
-                        <div>NAME</div>
-                        <div>PRICE</div>
+                        <div id="bookName" class="clickable" onclick="sortByName()">NAME ▲</div>
+                        <div id="bookPrice" class="clickable" onclick="sortByPrice()">PRICE ▲</div>
                         <div>ACTION</div>
                         <div>UPDATE</div>
                         <div>DELETE</div>
@@ -80,8 +80,41 @@ const decreaseRate = (bookId) => {
     }
 }
 
+function sortByName() {
+    gBooks.sort((a, b) => {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+    });
+    if (gNameSort === 'UP') {
+        console.log('Ascending');
+        gNameSort = 'DOWN';
+        document.getElementById("bookName").innerText = "NAME ▼";
+        gBooks.reverse();
+    } else {
+        console.log('Descending');
+        document.getElementById("bookName").innerText = "NAME ▲";
+        gNameSort = 'UP';
+    }
+    renderBooksTable(gBooks);
+}
 
-
+function sortByPrice() {
+    gBooks.sort((a, b) => {
+        if (a.price < b.price) return -1;
+        if (a.price > b.price) return 1;
+        return 0;
+    });
+    if (gPriceSort === 'UP') {
+        gPriceSort = 'DOWN';
+        document.getElementById('bookPrice').textContent = 'PRICE ▼';
+        gBooks.reverse();
+    } else {
+        gPriceSort = 'UP';
+        document.getElementById('bookPrice').textContent = 'PRICE ▲';
+    }
+    renderBooksTable(gBooks);
+}
 
 
 
