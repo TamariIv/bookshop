@@ -117,7 +117,42 @@ function sortByPrice() {
 }
 
 
+// Get the modal and the button
+const modal = document.getElementById("newBookModal");
+const btn = document.getElementById("newBookButton");
+const closeBtn = document.querySelector(".close-btn");
+
+// Show the modal when the button is clicked
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// Close the modal when the close button is clicked
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
 
 
+document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the form from refreshing the page
 
+    // Get the form values
+    const bookId = document.getElementById("addBookId").value;
+    const bookTitle = document.getElementById("addBookTitle").value;
+    const bookPrice = document.getElementById("addBookPrice").value;
+    const bookCoverUrl = document.getElementById("addBookCoverUrl").value;
+    console.log(bookPrice);
+    // Create the book object
+    const newBook = {
+        id: Number(bookId),
+        image: bookCoverUrl,
+        name: bookTitle,
+        price: Number(bookPrice)
+    };
+
+    addBook(newBook);
+    renderBooksTable(gBooks);
+    modal.style.display = "none";
+    document.querySelector("form").reset();
+});
 
