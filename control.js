@@ -8,7 +8,6 @@ function updateLocalStorage() {
 }
 
 function addBook(book) {
-    console.log('adding book');
     gBooks.push(book);
     updateLocalStorage();
     renderBooksTable(gBooks);
@@ -21,10 +20,16 @@ function deleteBook(bookId) {
 }
 
 function updateBook(book) {
-    deleteBook(book.id);
-    gBooks.push(book);
+    const index = gBooks.findIndex(b => book.id === b.id);
+    if (index !== -1) {
+        gBooks[index] = book;
+    }
     updateLocalStorage();
     renderBooksTable(gBooks);
+}
+
+function bookInDatabase(bookId) {
+    return gBooks.some(b => b.id === bookId);
 }
 
 main();

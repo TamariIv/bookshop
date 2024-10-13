@@ -6,7 +6,7 @@ const renderBookRow = (book) => {
             <div>${book.name}</div>
             <div>${book.price}</div>
             <div class="clickable" onclick="openDetails(${book.id})">Read</div>
-            <div class="clickable" onclick="updateBook(${book.id})">Update</div>
+            <div class="clickable" onclick="renderUpdateBook(${book.id})">Update</div>
             <div class="clickable" onclick="deleteBook(${book.id})">Delete</div>
         </div> `
 }
@@ -118,12 +118,12 @@ function sortByPrice() {
 
 
 // Get the modal and the button
-const modal = document.getElementById("newBookModal");
-const btn = document.getElementById("newBookButton");
+const modal = document.getElementById("bookModal");
+const newBookButton = document.getElementById("newBookButton");
 const closeBtn = document.querySelector(".close-btn");
 
 // Show the modal when the button is clicked
-btn.onclick = function() {
+newBookButton.onclick = function() {
     modal.style.display = "block";
 }
 
@@ -137,22 +137,46 @@ document.querySelector("form").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the form from refreshing the page
 
     // Get the form values
-    const bookId = document.getElementById("addBookId").value;
-    const bookTitle = document.getElementById("addBookTitle").value;
-    const bookPrice = document.getElementById("addBookPrice").value;
-    const bookCoverUrl = document.getElementById("addBookCoverUrl").value;
-    console.log(bookPrice);
+    const bookId = document.getElementById("modalBookId").value;
+    const bookTitle = document.getElementById("modalBookTitle").value;
+    const bookPrice = document.getElementById("modalBookPrice").value;
+    const bookCoverUrl = document.getElementById("modalBookCoverUrl").value;
+
     // Create the book object
-    const newBook = {
+    const book = {
         id: Number(bookId),
         image: bookCoverUrl,
         name: bookTitle,
         price: Number(bookPrice)
     };
+    
+    if (bookInDatabase(book.id)) {
+        console.log("Book already exists in the database.");
+        updateBook(book);
+    }
+    else {
+        console.log("Book added to the database.");
+        addBook(book);
+    }
 
-    addBook(newBook);
     renderBooksTable(gBooks);
     modal.style.display = "none";
     document.querySelector("form").reset();
 });
 
+const renderUpdateBook = (bookId) => {
+    const book = gBooks.find(b => b.id === bookId);
+    const modalTitle = document.getElementById("modalTitle");
+    const submitButton = document.getElementById("modalSubmit");
+
+    document.getElementById("modalBookId").value = book.id;
+    document.getElementById("modalBookTitle").value = book.name;
+    document.getElementById("modalBookPrice").value = book.price;
+    document.getElementById("modalBookCoverUrl").value = book.image;
+
+    modalTitle.textContent = "Update Book"; // Change modal title
+    submitButton.textContent = "Update"; // Change button text
+
+    modal.style.display = "block";
+
+}
