@@ -12,7 +12,7 @@ const renderBookRow = (book) => {
 }
 
 let currentPage = 1; // Start with the first page
-const itemsPerPage = 5; // Number of items to show per page
+const itemsPerPage = 3; // Number of items to show per page
 
 const renderBooksTable = (books) => {
     let tableStr = '';
@@ -39,11 +39,15 @@ const renderBooksTable = (books) => {
 
     // Calculate total pages
     const totalPages = Math.ceil(books.length / itemsPerPage);
+    let pageNumbers = '';
+    for (let i = 0; i < totalPages; i++) {
+        pageNumbers += `<div class="clickable page-number" onclick="changePage(${i + 1})">${i + 1}</div>`;
+    }
     
     // Generate the bottom row with pagination
     const bottomRow = `<div class="bottom-row">
                             <div class="clickable page-button" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'style="pointer-events: none; opacity: 0.5;"' : ''}><</div>
-                            <div class="page-number">${currentPage} / ${totalPages}</div>
+                            <div class="page-number">${pageNumbers}</div>
                             <div class="clickable page-button" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'style="pointer-events: none; opacity: 0.5;"' : ''}>></div>
                         </div>`;
 

@@ -213,3 +213,9 @@ form button:hover {
 .page-buton {
     padding: 100%;
 }
+
+.page-number {  
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+}
