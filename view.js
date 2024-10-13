@@ -11,11 +11,23 @@ const renderBookRow = (book) => {
         </div> `
 }
 
+let currentPage = 1; // Start with the first page
+const itemsPerPage = 5; // Number of items to show per page
+
 const renderBooksTable = (books) => {
     let tableStr = '';
-    for (const book of books) {
-        tableStr += renderBookRow(book)
+    
+    // Calculate the starting and ending index for the current page
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    
+    // Get the books for the current page
+    const booksForCurrentPage = books.slice(startIndex, endIndex);
+    
+    for (const book of booksForCurrentPage) {
+        tableStr += renderBookRow(book);
     }
+
     const topRow = `<div class="book-row top-row">
                         <div>ID</div>
                         <div id="bookName" class="clickable" onclick="sortByName()">NAME ┐</div>
@@ -23,16 +35,55 @@ const renderBooksTable = (books) => {
                         <div>ACTION</div>
                         <div>UPDATE</div>
                         <div>DELETE</div>
-                    </div>`
+                    </div>`;
+
+    // Calculate total pages
+    const totalPages = Math.ceil(books.length / itemsPerPage);
+    
+    // Generate the bottom row with pagination
     const bottomRow = `<div class="bottom-row">
-                            <div><</div>
-                            <div class="page-number">1</div>
-                            <div>></div>
-                        </div>`    
+                            <div class="clickable page-button" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'style="pointer-events: none; opacity: 0.5;"' : ''}><</div>
+                            <div class="page-number">${currentPage} / ${totalPages}</div>
+                            <div class="clickable page-button" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'style="pointer-events: none; opacity: 0.5;"' : ''}>></div>
+                        </div>`;
 
     document.getElementById("bookTable").innerHTML = topRow + tableStr + bottomRow;
-    return tableStr;
 }
+
+const changePage = (pageNumber) => {
+    // Check if the page number is valid
+    const totalPages = Math.ceil(gBooks.length / itemsPerPage);
+    console.log(pageNumber + ' ' + totalPages);
+
+    if (pageNumber < 1 || pageNumber > totalPages) return; // Do nothing if out of range
+    console.log('here');
+    currentPage = pageNumber; // Update current page
+    renderBooksTable(gBooks); // Re-render the table
+}
+
+
+// const renderBooksTable = (books) => {
+//     let tableStr = '';
+//     for (const book of books) {
+//         tableStr += renderBookRow(book)
+//     }
+//     const topRow = `<div class="book-row top-row">
+//                         <div>ID</div>
+//                         <div id="bookName" class="clickable" onclick="sortByName()">NAME ┐</div>
+//                         <div id="bookPrice" class="clickable" onclick="sortByPrice()">PRICE ┐</div>
+//                         <div>ACTION</div>
+//                         <div>UPDATE</div>
+//                         <div>DELETE</div>
+//                     </div>`
+//     const bottomRow = `<div class="bottom-row">
+//                             <div><</div>
+//                             <div class="page-number">1</div>
+//                             <div>></div>
+//                         </div>`    
+
+//     document.getElementById("bookTable").innerHTML = topRow + tableStr + bottomRow;
+//     return tableStr;
+// }
 
 const openDetails = (bookId) => {
     const book = gBooks.find(b => b.id === bookId);
@@ -172,5 +223,7 @@ const renderUpdateBook = (book) => {
 }
 
 function loadData() {
+    gBooks = gDump;
+    updateLocalStorage();
     renderBooksTable(gDump);
 }

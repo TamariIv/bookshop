@@ -17,6 +17,7 @@ function addBook(book) {
 function deleteBook(bookId) {
     gBooks = gBooks.filter(b => b.id!== bookId);
     updateLocalStorage();
+    localStorage.removeItem('rate-' + bookId);
     renderBooksTable(gBooks);
 }
 
