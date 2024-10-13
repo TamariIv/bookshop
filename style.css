@@ -37,6 +37,16 @@ header {
     height: 4em;
 }
 
+.op-bar-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: larger;
+    font-family: "Quicksand", sans-serif;
+    font-weight: bold;
+    margin: 1em;
+}
+
 #container {
     display: flex;
     flex-direction: row;
@@ -141,12 +151,6 @@ header {
     cursor: pointer;
 }
 
-#newBookButton {
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: larger;
-}
 
 
 /* General styling for the modal */

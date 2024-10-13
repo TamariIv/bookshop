@@ -64,7 +64,7 @@ let gBooks = [
 let gNameSort = 'UP';
 let gPriceSort = 'UP';
 
-const dump = [
+const gDump = [
     {
         id: 1,
         image: "https://www.booknet.co.il/Images/Site/Products/9781408855669.jpg",

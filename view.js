@@ -6,7 +6,7 @@ const renderBookRow = (book) => {
             <div>${book.name}</div>
             <div>${book.price}</div>
             <div class="clickable" onclick="openDetails(${book.id})">Read</div>
-            <div class="clickable" onclick="renderUpdateBook(${book.id})">Update</div>
+            <div class="clickable" onclick="updateBookModal(${book.id})">Update</div>
             <div class="clickable" onclick="deleteBook(${book.id})">Delete</div>
         </div> `
 }
@@ -18,8 +18,8 @@ const renderBooksTable = (books) => {
     }
     const topRow = `<div class="book-row top-row">
                         <div>ID</div>
-                        <div id="bookName" class="clickable" onclick="sortByName()">NAME ▲</div>
-                        <div id="bookPrice" class="clickable" onclick="sortByPrice()">PRICE ▲</div>
+                        <div id="bookName" class="clickable" onclick="sortByName()">NAME ┐</div>
+                        <div id="bookPrice" class="clickable" onclick="sortByPrice()">PRICE ┐</div>
                         <div>ACTION</div>
                         <div>UPDATE</div>
                         <div>DELETE</div>
@@ -87,13 +87,9 @@ function sortByName() {
         return 0;
     });
     if (gNameSort === 'UP') {
-        console.log('Ascending');
         gNameSort = 'DOWN';
-        document.getElementById("bookName").innerText = "NAME ▼";
         gBooks.reverse();
     } else {
-        console.log('Descending');
-        document.getElementById("bookName").innerText = "NAME ▲";
         gNameSort = 'UP';
     }
     renderBooksTable(gBooks);
@@ -107,11 +103,9 @@ function sortByPrice() {
     });
     if (gPriceSort === 'UP') {
         gPriceSort = 'DOWN';
-        document.getElementById('bookPrice').textContent = 'PRICE ▼';
         gBooks.reverse();
     } else {
         gPriceSort = 'UP';
-        document.getElementById('bookPrice').textContent = 'PRICE ▲';
     }
     renderBooksTable(gBooks);
 }
@@ -151,11 +145,9 @@ document.querySelector("form").addEventListener("submit", function(event) {
     };
     
     if (bookInDatabase(book.id)) {
-        console.log("Book already exists in the database.");
         updateBook(book);
     }
     else {
-        console.log("Book added to the database.");
         addBook(book);
     }
 
@@ -164,8 +156,7 @@ document.querySelector("form").addEventListener("submit", function(event) {
     document.querySelector("form").reset();
 });
 
-const renderUpdateBook = (bookId) => {
-    const book = gBooks.find(b => b.id === bookId);
+const renderUpdateBook = (book) => {
     const modalTitle = document.getElementById("modalTitle");
     const submitButton = document.getElementById("modalSubmit");
 
@@ -178,5 +169,8 @@ const renderUpdateBook = (bookId) => {
     submitButton.textContent = "Update"; // Change button text
 
     modal.style.display = "block";
+}
 
+function loadData() {
+    renderBooksTable(gDump);
 }

@@ -1,5 +1,6 @@
 function main() {
-    renderBooksTable(gBooks);
+    books = JSON.parse(localStorage.getItem("books")) || gDump;
+    renderBooksTable(books);
 }
 
 function updateLocalStorage() {
@@ -19,13 +20,19 @@ function deleteBook(bookId) {
     renderBooksTable(gBooks);
 }
 
-function updateBook(book) {
+function updateBookModal(bookId) {
+    const book = gBooks.find(b => b.id === bookId);
+    renderUpdateBook(book);
+}
+
+function updateBook(book) { 
     const index = gBooks.findIndex(b => book.id === b.id);
     if (index !== -1) {
         gBooks[index] = book;
     }
     updateLocalStorage();
     renderBooksTable(gBooks);
+    
 }
 
 function bookInDatabase(bookId) {
